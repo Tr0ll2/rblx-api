@@ -1,0 +1,24 @@
+{
+  "name": "rblx-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tr0ll2/rblx-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tr0ll2/rblx-api/issues"
+  },
+  "homepage": "https://github.com/Tr0ll2/rblx-api#readme",
+  "dependencies": {
+    "get-pixels-updated": "^1.0.0",
+    "json-server": "^0.16.3"
+  }
+}
