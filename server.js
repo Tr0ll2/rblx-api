@@ -1,9 +1,6 @@
-onst express = require('express')
+const express = require('express')
 const app = express()
-
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
+const port = process.env.PORT || 3000;
 
 app.listen(port)
 
@@ -15,6 +12,7 @@ var getPixels = require('get-pixels')
 
 app.get('/', function (req, res) {
 		res.render('index.html');
+    res.send('Hello World')
 });
 
 app.get('/ping', function (req, res) {
