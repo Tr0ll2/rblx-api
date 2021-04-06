@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 
 
 
-var getPixels = require('get-pixels-updated')
+var getPixels = require('get-pixels')
 
 app.get('/', function (req, res) {
 		res.render('index.html');

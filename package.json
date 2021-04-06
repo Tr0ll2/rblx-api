@@ -2,7 +2,7 @@
   "name": "rblx-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Tr0ll2/rblx-api#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "get-pixels": "^3.3.2",
     "get-pixels-updated": "^1.0.0"
   }
 }
