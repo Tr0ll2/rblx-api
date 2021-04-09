@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const pixel = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const isImage = require('is-image-url');
 const isUrl = require('is-absolute-url');
