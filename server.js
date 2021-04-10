@@ -62,32 +62,37 @@ pixel.get("/data", (req,res)=>{
 							var frames = pixels.shape[0];
 							var width = pixels.shape[1];
 							var height = pixels.shape[2];
+							console.log(pixels.shape[3]);
+							console.log("got pixels", typeof pixels.shape)
 							var state = [];
 							for(var z = 0; z < frames; z++){ // z represents the specific frame of a gif
   								var frame = [];
                 				var dispose = frameInfo.disposal;
   								for(var y = 0; y < height; y++){
-                 					//state[y] = state[y] || [];
+                 					state[y] = state[y] || [];
   									var row = [];
   									for(var x = 0; x < width; x++){
-                    					//state[y][x] = state[y][x] || [0,0,0,127];
+                    					state[y][x] = state[y][x] || [0,0,0,127];
 										var r = pixels.get(z,x,y,0);
 										var g = pixels.get(z,x,y,1);
 										var b = pixels.get(z,x,y,2);
 										var a = 127 - (pixels.get(z,x,y,3)*(127/255));
 										var pixel;
 										var empty = a === 127;
-										/*if (empty){
+										if (empty){
+											if (y==1&&x==1){
+												console.log(state[y][x], state[y][x].slice())
+											}
 											pixel = state[y][x].slice();
-										}else{*/
+										}else{
 											pixel = [r,g,b,a];
-										//}
+										}
   										row.push(pixel);
-										/*if (dispose <= 1 && !empty) { //Dispose 0 (Unspecified) and Dispose 1 (Do Not Dispose) mean save the frame to the state
+										if (dispose <= 1 && !empty) { //Dispose 0 (Unspecified) and Dispose 1 (Do Not Dispose) mean save the frame to the state
 											state[y][x] = pixel.slice();
 										} else if (dispose === 2) { //Dispose 2 (Restore To Background) means nuke the state
 											state[y][x] = [0,0,0,127];
-										}*/ //Dispose 3 (Restore to Previous) means do not save the frame to the state, so no changes to the state are needed
+										} //Dispose 3 (Restore to Previous) means do not save the frame to the state, so no changes to the state are needed
   									}
   									frame.push(row);
   								}
