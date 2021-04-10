@@ -21,7 +21,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "get-pixels": "^3.3.2",
-    "get-pixels-updated": "^1.0.0",
+    "get-pixels-frame-info-update": "^3.3.2",
     "is-absolute-url": "^3.0.3",
     "is-image-url": "^1.1.8"
   }
