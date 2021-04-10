@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 
 const isImage = require('is-image-url');
 const isUrl = require('is-absolute-url');
-const getPixels = require('get-pixels');
+const getPixels = require('get-pixels-frame-info-update');
 
 app.engine('html', require("ejs").renderFile);
 
@@ -35,7 +35,7 @@ pixel.get("/data", (req,res)=>{
 			console.log("URL, ending in " + end + ", is real")
       		if (isImage(url)) {
     			console.log("URL, ending in " + end + ", is an image")
-        		getPixels(url, function(err, pixels, frameInfo) {
+        		getPixels(url, function(err, pixels, framesInfo) {
   					if (err) {
   						console.log(err)
   						return
@@ -65,7 +65,9 @@ pixel.get("/data", (req,res)=>{
 							var state = [];
 							for(var z = 0; z < frames; z++){ // z represents the specific frame of a gif
   								var frame = [];
-                				//var dispose = frameInfo.disposal;
+								var frameInfo = framesInfo[z]
+                				var dispose = frameInfo.disposal;
+								//if (z==0){console.log(frameInfo)}
   								for(var y = 0; y < height; y++){
                  					state[y] = state[y] || [];
   									var row = [];
@@ -78,23 +80,20 @@ pixel.get("/data", (req,res)=>{
 										var pixel;
 										var empty = a === 127;
 										if (empty){
-											// if (y==1&&x==1){
-											// 	console.log(state[y][x], state[y][x].slice())
-											// }
 											pixel = state[y][x].slice();
 										}else{
 											pixel = [r,g,b,a];
 										}
   										row.push(pixel);
-										if (!empty) {//(dispose <= 1 && !empty) { //Dispose 0 (Unspecified) and Dispose 1 (Do Not Dispose) mean save the frame to the state
+										if (dispose <= 1 && !empty) { //Dispose 0 (Unspecified) and Dispose 1 (Do Not Dispose) mean save the frame to the state
 											state[y][x] = pixel.slice();
-										} else if (state[y][x] != pixel) { //Dispose 2 (Restore To Background) means nuke the state
+										} else if (dispose === 2) { //Dispose 2 (Restore To Background) means nuke the state
 											state[y][x] = [0,0,0,127];
 										} //Dispose 3 (Restore to Previous) means do not save the frame to the state, so no changes to the state are needed
   									}
   									frame.push(row);
   								}
-  								//frame.push(frameInfo.delay); //Times 10 because GIF protocols specify delay in terms of 100ths of a second, not milliseconds (which are 1000ths)
+  								frame.push(frameInfo.delay); //Times 10 because GIF protocols specify delay in terms of 100ths of a second, not milliseconds (which are 1000ths)
   								array.push(frame);
   							}
   						}
