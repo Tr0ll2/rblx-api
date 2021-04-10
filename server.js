@@ -67,27 +67,27 @@ pixel.get("/data", (req,res)=>{
   								var frame = [];
                 				var dispose = frameInfo.disposal;
   								for(var y = 0; y < height; y++){
-                 					state[y] = state[y] || [];
+                 					//state[y] = state[y] || [];
   									var row = [];
   									for(var x = 0; x < width; x++){
-                    					state[y][x] = state[y][x] || [0,0,0,127];
+                    					//state[y][x] = state[y][x] || [0,0,0,127];
 										var r = pixels.get(z,x,y,0);
 										var g = pixels.get(z,x,y,1);
 										var b = pixels.get(z,x,y,2);
 										var a = 127 - (pixels.get(z,x,y,3)*(127/255));
 										var pixel;
 										var empty = a === 127;
-										if (empty){
+										/*if (empty){
 											pixel = state[y][x].slice();
-										}else{
+										}else{*/
 											pixel = [r,g,b,a];
-										}
+										//}
   										row.push(pixel);
-										if (dispose <= 1 && !empty) { //Dispose 0 (Unspecified) and Dispose 1 (Do Not Dispose) mean save the frame to the state
+										/*if (dispose <= 1 && !empty) { //Dispose 0 (Unspecified) and Dispose 1 (Do Not Dispose) mean save the frame to the state
 											state[y][x] = pixel.slice();
 										} else if (dispose === 2) { //Dispose 2 (Restore To Background) means nuke the state
 											state[y][x] = [0,0,0,127];
-										} //Dispose 3 (Restore to Previous) means do not save the frame to the state, so no changes to the state are needed
+										}*/ //Dispose 3 (Restore to Previous) means do not save the frame to the state, so no changes to the state are needed
   									}
   									frame.push(row);
   								}
