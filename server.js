@@ -80,9 +80,9 @@ pixel.get("/data", (req,res)=>{
 										var pixel;
 										var empty = a === 127;
 										if (empty){
-											if (y==1&&x==1){
-												console.log(state[y][x], state[y][x].slice())
-											}
+											// if (y==1&&x==1){
+											// 	console.log(state[y][x], state[y][x].slice())
+											// }
 											pixel = state[y][x].slice();
 										}else{
 											pixel = [r,g,b,a];
